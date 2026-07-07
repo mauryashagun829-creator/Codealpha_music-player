@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groove — Music Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#231019;
+    --bg-card:#2e1620;
+    --bg-card-2:#3a1c29;
+    --amber:#e8a23d;
+    --amber-soft:#caa46a;
+    --cream:#f3e9dd;
+    --cream-dim:#c9b8a8;
+    --line:rgba(243,233,221,0.10);
+    --groove-dark:#1a0c12;
+    --shadow:0 20px 50px rgba(0,0,0,0.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(circle at 18% 8%, rgba(232,162,61,0.08), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(202,164,106,0.06), transparent 50%),
+      var(--bg-deep);
+    font-family:'Manrope', sans-serif;
+    color:var(--cream);
+    padding:32px 16px;
+  }
+
+  .player{
+    width:380px;
+    max-width:100%;
+    background:linear-gradient(165deg, var(--bg-card), var(--bg-card-2));
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:28px 26px 24px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .player::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(115deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 6px);
+    pointer-events:none;
+  }
+
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--amber-soft);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+  }
+  .eyebrow .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 0 0 rgba(232,162,61,0.6);
+  }
+  .eyebrow .dot.live{
+    animation:pulseDot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulseDot{
+    0%,100%{box-shadow:0 0 0 0 rgba(232,162,61,0.5);}
+    50%{box-shadow:0 0 0 5px rgba(232,162,61,0);}
+  }
+
+  /* ---- Vinyl & tonearm ---- */
+  .stage{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 0 22px;
+    position:relative;
+  }
+  .vinyl-wrap{
+    position:relative;
+    width:188px;
+    height:188px;
+  }
+  .vinyl{
+    width:188px;
+    height:188px;
+    border-radius:50%;
+    background:
+      repeating-radial-gradient(circle at 50% 50%,
+        var(--groove-dark) 0px, var(--groove-dark) 2px,
+        #221016 3px, #221016 4px);
+    box-shadow:
+      0 14px 30px rgba(0,0,0,0.5),
+      inset 0 0 0 1px rgba(255,255,255,0.04);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:spin 9s linear infinite;
+    animation-play-state:paused;
+  }
+  .vinyl.spinning{animation-play-state:running;}
+  .label{
+    width:72px;height:72px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #f3c878, var(--amber) 70%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.3);
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:13px;
+    color:#2a1306;
+    text-align:center;
+    line-height:1.1;
+    padding:4px;
+  }
+  .label .spindle{
+    position:absolute;
+    width:8px;height:8px;border-radius:50%;
+    background:#2a1306;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .tonearm{
+    position:absolute;
